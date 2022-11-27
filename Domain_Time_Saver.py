@@ -3,10 +3,12 @@ import subprocess
 import sys
 
 #Temporary
-domain = "google.com"
+domain = "alexamerican.com"
 
 
 def getAddrx(domain): #Finds out number of IPs
+    print("Domain: " + domain)
+    print("Getting hostname by domain...")
     try:
         addr = socket.gethostbyname_ex(domain)
         ipx = repr(addr[2])
@@ -14,10 +16,17 @@ def getAddrx(domain): #Finds out number of IPs
         ipx = ipx.strip("]")
         ipx = ipx.replace("'","")
 
+        #Only for printing
+        ipx_temp = ipx
+        ipx_temp = ipx_temp.replace(',','')
+        ipx_temp = ipx_temp.split(' ')
+        
         counter = str(ipx).count(",") + 1
-
+        
         if str(ipx).find(",") != -1:
-            print("Addresses: " + str(ipx))
+            print("Addresses: ")
+            for step in range(len(ipx_temp)):
+                print(ipx_temp[step])
             print("Number of IPs: " + str(counter))
         else:
             print("Address: " + str(ipx))
@@ -29,7 +38,9 @@ def getAddrx(domain): #Finds out number of IPs
         print("Cannot Resolve to domain: " + domain)
         return False
 
-def getDomain(IP): #Will be utilziing nslookup to resolve ips to domain names
+def getDomainNames(IP): #Will be utilizing nslookup to resolve ips to domain names
+
+    #nslookup search
     try:
         proc = subprocess.run(["nslookup", IP], stdout=subprocess.PIPE)
         #print(proc.stdout)
@@ -44,11 +55,36 @@ def getDomain(IP): #Will be utilziing nslookup to resolve ips to domain names
                 offset2 = string2.find("\\n")
                 string3 = string2[:offset2-1]
                 print(string3)
+                return string3
         else:
-            print("Error")
+            print("Error with nslookup")
     except:
         print("Error with nslookup")
         return False
 
+def DomainGrabber(IPList): #Function will split all the IPs from a string
+                    #And turn it into a list
+    if IPList != False:
+        try:
+            counter = str(IPList).count(",") + 1
+            IPList_Sorted = IPList.replace(',','')
+            IPList_Sorted = IPList_Sorted.split(' ')
+      
+            #Call getDomain() Function to do domain name resolution
+            print("\nNew Domains listed below: ")
+            nDomain_List = []
+            for IP in IPList_Sorted:
+                nDomain = getDomainNames(IP) #New Domain
+                nDomain_List.append(nDomain)
+        
+        #Return list of new domains
+            return nDomain_List
+        except Exception:
+            print("Error with domain resolution...")
+
 test = getAddrx(domain)
-getDomain('172.217.14.206')
+New_Domains = DomainGrabber(test)
+
+
+
+
