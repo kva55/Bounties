@@ -40,10 +40,10 @@ def getDomain(IP): #Will be utilziing nslookup to resolve ips to domain names
             string2 = string[offset+2:]
         
 
-        if string2.find("\\n") != -1:
-            offset2 = string2.find("\\n")
-            string3 = string2[:offset2-1]
-            print(string3)
+            if string2.find("\\n") != -1:
+                offset2 = string2.find("\\n")
+                string3 = string2[:offset2-1]
+                print(string3)
         else:
             print("Error")
     except:
