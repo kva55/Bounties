@@ -2,10 +2,6 @@ import socket
 import subprocess
 import sys
 
-#Temporary
-domain = "alexamerican.com"
-
-
 def getAddrx(domain): #Finds out number of IPs
     print("Domain: " + domain)
     print("Getting hostname by domain...")
@@ -39,6 +35,7 @@ def getAddrx(domain): #Finds out number of IPs
         return False
 
 def getDomainNames(IP): #Will be utilizing nslookup to resolve ips to domain names
+                        #Will need to also utilize dig because nslookup sucks
 
     #nslookup search
     try:
@@ -62,6 +59,14 @@ def getDomainNames(IP): #Will be utilizing nslookup to resolve ips to domain nam
         print("Error with nslookup")
         return False
 
+    #Dig search may be implemented as a second check
+    """
+
+    Add dig check here
+
+
+    """
+
 def DomainGrabber(IPList): #Function will split all the IPs from a string
                     #And turn it into a list
     if IPList != False:
@@ -76,14 +81,12 @@ def DomainGrabber(IPList): #Function will split all the IPs from a string
             for IP in IPList_Sorted:
                 nDomain = getDomainNames(IP) #New Domain
                 nDomain_List.append(nDomain)
+            print()
         
         #Return list of new domains
             return nDomain_List
         except Exception:
             print("Error with domain resolution...")
-
-test = getAddrx(domain)
-New_Domains = DomainGrabber(test)
 
 
 

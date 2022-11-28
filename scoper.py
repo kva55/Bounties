@@ -26,10 +26,10 @@ def HostCutter(Input):
             if (str(Input3)).find('*') != -1:
                 cut3 = (str(Input3)).find('*')
                 Input4 = str(Input3)[cut3:]
-                print(Input4)
+                #print(Input4)
                 return Input4
             
-            print(Input3)
+            #print(Input3)
             return Input3
 
 def JSONParser():
@@ -50,14 +50,14 @@ def JSONParser():
                         if isinstance(value1, dict):
                             for key2, value2 in value1.items():
                                 if key2 == "exclude":
-                                    print("\nExclude: ")
+                                    #print("\nExclude: ")
                                     for step in value2:
                                         Exclude.append(HostCutter(step))
                                         
                                         
                                         
                                 if key2 == "include":
-                                    print("\nInclude: ")
+                                    #print("\nInclude: ")
                                     for step in value2:
                                         HostCutter(step)
                                         Include.append(HostCutter(step))
@@ -65,10 +65,12 @@ def JSONParser():
             fopen.close()
             Include_Sorted = list(dict.fromkeys(Include)) 
             Exclude_Sorted = list(dict.fromkeys(Exclude))
-            print("\n\nInclude List")
-            pprint(Include_Sorted)
-            print("Exclude List")
-            pprint(Exclude_Sorted)
+            #print("\n\nInclude List")
+            #pprint(Include_Sorted)
+            #print("Exclude List")
+            #pprint(Exclude_Sorted)
+
+            return Exclude_Sorted, Include_Sorted # Will return tuple
             
         else:
             print("Hackerone Scope Verifier.\nFile not found: " + scopef)
@@ -77,5 +79,5 @@ def JSONParser():
         print("Hackerone Scope Verifier.\n***No file attached***")
 
 
-JSONParser()
+#JSONParser()
 #print(Include_Sorted, Exclude_Sorted)

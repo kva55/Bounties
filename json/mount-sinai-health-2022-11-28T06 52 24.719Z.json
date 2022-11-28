@@ -1,0 +1,416 @@
+{
+    "target": {
+        "scope": {
+            "advanced_mode": true,
+            "exclude": [],
+            "include": [
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.mountsinai\\.org$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.mountsinai\\.org$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.mssm\\.edu$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.mssm\\.edu$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.stoppain\\.org$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.stoppain\\.org$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.nyee2020\\.com$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.nyee2020\\.com$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.healthandhealingny\\.org$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.healthandhealingny\\.org$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.bethisraelny\\.org$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.bethisraelny\\.org$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.thehealthcenterhudsonyards\\.com$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.thehealthcenterhudsonyards\\.com$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.thechep\\.org$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.thechep\\.org$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.nyeesurgnet\\.com$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.nyeesurgnet\\.com$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.mountsinaiconnect\\.org$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.mountsinaiconnect\\.org$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.dubinbreastcenter\\.com$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.dubinbreastcenter\\.com$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.arnholdinstitute\\.org$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.arnholdinstitute\\.org$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.wtcexams\\.org$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.wtcexams\\.org$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.stlukeshospitalnyc\\.org$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.stlukeshospitalnyc\\.org$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.sinaidowntown\\.net$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.sinaidowntown\\.net$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.sarcoidosis\\.org$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.sarcoidosis\\.org$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.medicalconciergenyc\\.com$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.medicalconciergenyc\\.com$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.healthandhealingny\\.com$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.healthandhealingny\\.com$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.carelink\\.mountsinaiconnect\\.org$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.carelink\\.mountsinaiconnect\\.org$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.usmgny\\.org$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.usmgny\\.org$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.slrortho\\.com$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.slrortho\\.com$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.nycepilepsyteam\\.com$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.nycepilepsyteam\\.com$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.cccsymposium\\.org$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.cccsymposium\\.org$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.msonsitehealth\\.org$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.msonsitehealth\\.org$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.mountsinaiheartnp\\.org$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.mountsinaiheartnp\\.org$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.healthbytesnyc\\.com$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.healthbytesnyc\\.com$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.mountsinaidoctors\\.org$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.mountsinaidoctors\\.org$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.snch\\.org$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.snch\\.org$",
+                    "port": "^443$",
+                    "protocol": "https"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.southnassau\\.org$",
+                    "port": "^80$",
+                    "protocol": "http"
+                },
+                {
+                    "enabled": true,
+                    "file": "^/.*",
+                    "host": "^.*\\.southnassau\\.org$",
+                    "port": "^443$",
+                    "protocol": "https"
+                }
+            ]
+        }
+    }
+}
