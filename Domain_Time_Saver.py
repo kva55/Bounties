@@ -1,6 +1,7 @@
 import socket
 import subprocess
 import sys
+from pprint import pprint
 
 def getAddrx(domain): #Finds out number of IPs
     print("Domain: " + domain)
@@ -34,59 +35,77 @@ def getAddrx(domain): #Finds out number of IPs
         print("Cannot Resolve to domain: " + domain)
         return False
 
-def getDomainNames(IP): #Will be utilizing nslookup to resolve ips to domain names
-                        #Will need to also utilize dig because nslookup sucks
 
-    #nslookup search
-    try:
-        proc = subprocess.run(["nslookup", IP], stdout=subprocess.PIPE)
-        #print(proc.stdout)
-        string = str(proc.stdout)
-    
-        if string.find('=') != -1:
-            offset = string.find('=')
-            string2 = string[offset+2:]
+#Not required since dig is used. If required, uncomment and format results (GLHF)
+##def getDomainNames_NSLOOKUP(IP): #Will be utilizing nslookup to resolve ips to domain names
+##
+##    tmpDomainList = []
+##
+##    #nslookup search
+##    try:
+##        proc = subprocess.run(["nslookup", IP], stdout=subprocess.PIPE)
+##        #print(proc.stdout)
+##        string = str(proc.stdout)
+##        string_format = string.split('\n')
+##        
+##        #print("Recieved at least 1 domain")
+##        pprint(string_format)
+##        return string_format
+##
+##    except:
+##        print("Error with nslookup")
+##        return False
+
+
+
+def getDomainNames_DIG(IP): #Will need to also utilize dig because nslookup sucks
+    #try:
+    proc = subprocess.run(["dig","-x", IP, "+short"], stdout=subprocess.PIPE)
+    string = str(proc.stdout)
+
+        #print("Recieved at least 1 domain")
+    string_format = string.split('\\n')
+    return string_format
+    #for entry in string_format:
+        #nDomain_List.append(entry)
+        #string_format = string_format.replace('\\','')
+        #pprint(string_format)
+        #return entry
         
-
-            if string2.find("\\n") != -1:
-                offset2 = string2.find("\\n")
-                string3 = string2[:offset2-1]
-                print(string3)
-                return string3
-        else:
-            print("Error with nslookup")
-    except:
-        print("Error with nslookup")
-        return False
-
-    #Dig search may be implemented as a second check
-    """
-
-    Add dig check here
+    #except:
+        #print("Error with dig")
 
 
-    """
 
 def DomainGrabber(IPList): #Function will split all the IPs from a string
                     #And turn it into a list
     if IPList != False:
-        try:
-            counter = str(IPList).count(",") + 1
-            IPList_Sorted = IPList.replace(',','')
-            IPList_Sorted = IPList_Sorted.split(' ')
+        #try:
+        counter = str(IPList).count(",") + 1
+        IPList_Sorted = IPList.replace(',','')
+        IPList_Sorted = IPList_Sorted.split(' ')
+        nDomain_List = []
       
             #Call getDomain() Function to do domain name resolution
-            print("\nNew Domains listed below: ")
-            nDomain_List = []
-            for IP in IPList_Sorted:
-                nDomain = getDomainNames(IP) #New Domain
-                nDomain_List.append(nDomain)
-            print()
+        print("\nNew Domains listed below: ")
+            
+        for IP in IPList_Sorted:
+                #nDomain  = getDomainNames_NSLOOKUP(IP) #New Domain from nslookup
+            nDomain = getDomainNames_DIG(IP)        #New Domain from dig
+            
+            for entry in nDomain:
+                print(entry)
+                #entry = entry.replace('[','')
+                #entry = entry.replace(']','')
+                #entry = entry.replace("'",'')
+                
+                nDomain_List.append(entry)
+
         
         #Return list of new domains
-            return nDomain_List
-        except Exception:
-            print("Error with domain resolution...")
+        return nDomain_List
+        #except Exception:
+            #print("Error with domain resolution...")
 
 
 

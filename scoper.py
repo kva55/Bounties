@@ -77,6 +77,7 @@ def JSONParser():
 
     else:
         print("Hackerone Scope Verifier.\n***No file attached***")
+        exit(0) #Remove later
 
 
 #JSONParser()
