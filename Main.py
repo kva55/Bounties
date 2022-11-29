@@ -57,34 +57,63 @@ def Main():
             New_Domains = DomainGrabber(Addresses)
             New_Domains_List.append(New_Domains)
 
-    return New_Domains_List
+
+    #Basic Formatting - Should be moved to another function later
+    Domains_Formatted = []
+    Domains = str(New_Domains_List).replace("'",'')
+    Domains = Domains.replace("[", "")
+    Domains = Domains.replace("]", "")
+    Domains = Domains.strip("'")
+    Domains = Domains.split(',')
+    for entry in Domains:
+        test = entry.strip("'")
+        test = entry.strip('"')
+        test = entry.strip('"b')
+        test = test.replace('"','')
+        test = test.replace('\n','')
+        test = test.replace(' ','')
+        
+        if str(test) != 'None':
+            if str(test).endswith('.'):
+                test = test.rstrip('.')
+    
+            if str(test) != '':
+                Domains_Formatted.append(test)
+
+        
+            
+    Domains_Formatted_dups = list(dict.fromkeys(Domains_Formatted))
+
+    return Domains_Formatted_dups
 
 Domains = Main()
-Domains_Formatted = []
+##Domains_Formatted = []
 
-Domains = str(Domains).replace("'",'')
-Domains = Domains.replace("[", "")
-Domains = Domains.replace("]", "")
-Domains = Domains.strip("'")
-Domains = Domains.split(',')
-#pprint(Domains)
-#pprint(Domains)
-for entry in Domains:
-    test = entry.strip("'")
-    test = entry.strip('"')
-    test = entry.strip('"b')
-    test = test.replace('"','')
-    test = test.replace('\n','')
-    test = test.replace(' ','')
-    if str(test).endswith('.'):
-        test = test.rstrip('.')
-    
-    if str(test) != '':
-        Domains_Formatted.append(test)
+print("\n\nName Servers Located: ")
+
+##Domains = str(Domains).replace("'",'')
+##Domains = Domains.replace("[", "")
+##Domains = Domains.replace("]", "")
+##Domains = Domains.strip("'")
+##Domains = Domains.split(',')
+###pprint(Domains)
+###pprint(Domains)
+##for entry in Domains:
+##    test = entry.strip("'")
+##    test = entry.strip('"')
+##    test = entry.strip('"b')
+##    test = test.replace('"','')
+##    test = test.replace('\n','')
+##    test = test.replace(' ','')
+##    if str(test).endswith('.'):
+##        test = test.rstrip('.')
+##    
+##    if str(test) != '':
+##        Domains_Formatted.append(test)
 #print("Final result:\n\n" + str(Domains))
 
 #Quickly see duplicates and remove them
-Domains_Formatted_dups = list(dict.fromkeys(Domains_Formatted))
-pprint(Domains_Formatted_dups)
+##Domains_Formatted_dups = list(dict.fromkeys(Domains_Formatted))
+pprint(Domains)
 
     

@@ -59,53 +59,55 @@ def getAddrx(domain): #Finds out number of IPs
 
 
 def getDomainNames_DIG(IP): #Will need to also utilize dig because nslookup sucks
-    #try:
-    proc = subprocess.run(["dig","-x", IP, "+short"], stdout=subprocess.PIPE)
-    string = str(proc.stdout)
+    try:
+        proc = subprocess.run(["dig","-x", IP, "+short"], stdout=subprocess.PIPE)
+        string = str(proc.stdout)
 
         #print("Recieved at least 1 domain")
-    string_format = string.split('\\n')
-    return string_format
+        string_format = string.split('\\n')
+
+        if string_format != None:
+            return string_format
     #for entry in string_format:
         #nDomain_List.append(entry)
         #string_format = string_format.replace('\\','')
         #pprint(string_format)
         #return entry
         
-    #except:
-        #print("Error with dig")
+    except:
+        print("Error with dig")
 
 
 
 def DomainGrabber(IPList): #Function will split all the IPs from a string
                     #And turn it into a list
     if IPList != False:
-        #try:
-        counter = str(IPList).count(",") + 1
-        IPList_Sorted = IPList.replace(',','')
-        IPList_Sorted = IPList_Sorted.split(' ')
-        nDomain_List = []
+        try:
+            counter = str(IPList).count(",") + 1
+            IPList_Sorted = IPList.replace(',','')
+            IPList_Sorted = IPList_Sorted.split(' ')
+            nDomain_List = []
       
             #Call getDomain() Function to do domain name resolution
-        print("\nNew Domains listed below: ")
+            print("\nNew Domains listed below: ")
             
-        for IP in IPList_Sorted:
+            for IP in IPList_Sorted:
                 #nDomain  = getDomainNames_NSLOOKUP(IP) #New Domain from nslookup
-            nDomain = getDomainNames_DIG(IP)        #New Domain from dig
+                nDomain = getDomainNames_DIG(IP)        #New Domain from dig
             
-            for entry in nDomain:
-                print(entry)
-                #entry = entry.replace('[','')
-                #entry = entry.replace(']','')
-                #entry = entry.replace("'",'')
+                for entry in nDomain:
+                    #print(entry)
+                    #entry = entry.replace('[','')
+                    #entry = entry.replace(']','')
+                    #entry = entry.replace("'",'')
                 
-                nDomain_List.append(entry)
+                    nDomain_List.append(entry)
 
         
-        #Return list of new domains
-        return nDomain_List
-        #except Exception:
-            #print("Error with domain resolution...")
+            #Return list of new domains
+            return nDomain_List
+        except Exception:
+            print("Error with domain resolution...")
 
 
 
