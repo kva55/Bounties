@@ -6,6 +6,7 @@ from pprint import pprint
 def getAddrx(domain): #Finds out number of IPs
     print("Domain: " + domain)
     print("Getting hostname by domain...")
+    
     try:
         addr = socket.gethostbyname_ex(domain)
         ipx = repr(addr[2])
@@ -31,8 +32,9 @@ def getAddrx(domain): #Finds out number of IPs
 
         return ipx
 
-    except:
+    except Exception as e:
         print("Cannot Resolve to domain: " + domain)
+        print(e)
         return False
 
 

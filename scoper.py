@@ -32,12 +32,12 @@ def HostCutter(Input):
             #print(Input3)
             return Input3
 
-def JSONParser():
+def JSONParser(json_file_var):
     
     #Basic logic to see if file is attached.
     if len(sys.argv) > 1:
 
-        scopef = sys.argv[1]
+        scopef = json_file_var #sys.argv[1]
         if path.exists(scopef):
             print("Hackerone Scope Verifier.\nFile attached is: " + scopef)
 
