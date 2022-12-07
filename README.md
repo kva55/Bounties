@@ -1,4 +1,4 @@
-# Bounties
+# BOSS - Bounty Osint Sniffer Software (Names a work-in-progress)
 Currently this code enumerates all the domains / ptr names based on a hackerone includes/excludes json file
 
 ```python3 Main.py --json <hackerone.json>```
