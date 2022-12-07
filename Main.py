@@ -79,7 +79,7 @@ def RegFile(rfile):
                 
     Domains_Formatted_dups = list(dict.fromkeys(Domains_Formatted))
     print("\n\nName Servers Located: ")
-    pprint(Domains)
+    pprint(Domains_Formatted_dups)
     
     return Domains_Formatted_dups
     
@@ -141,7 +141,7 @@ def JSONFIle(Saved_Scope):
             
     Domains_Formatted_dups = list(dict.fromkeys(Domains_Formatted))
     print("\n\nName Servers Located: ")
-    pprint(Domains)
+    pprint(Domains_Formatted_dups)
     
     return Domains_Formatted_dups
 
