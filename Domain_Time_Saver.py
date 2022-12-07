@@ -79,6 +79,28 @@ def getDomainNames_DIG(IP): #Will need to also utilize dig because nslookup suck
     except:
         print("Error with dig")
 
+def getNameServers_DIG(domain): #Experimental, searches for all name servers which may or may not be in scope
+                                #This function is strictly domains to ns, not IPs
+    try:
+        #Sanitize input
+        if str(domain).find('*') != -1:
+            cut = str(domain).find('*')
+            domain = domain[cut+2:] #Domain without wildcard
+
+        proc = subprocess.run(["dig","-t", "ns", domain, "+short"], stdout=subprocess.PIPE)
+        string = str(proc.stdout)
+
+        #print("Recieved at least 1 domain")
+        string_format = string.split('\\n')
+        string_format = string[:-1]
+        #print(domain)
+        print(string_format)
+
+        if string_format != None:
+            return string_format
+        
+    except:
+        print("Error with dig ns")
 
 
 def DomainGrabber(IPList): #Function will split all the IPs from a string

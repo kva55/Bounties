@@ -1,5 +1,6 @@
 from Domain_Time_Saver import getAddrx, \
-     DomainGrabber, getDomainNames_DIG
+     DomainGrabber, getDomainNames_DIG, \
+     getNameServers_DIG
 from scoper import HostCutter, JSONParser
 from pprint import pprint
 from os import path
@@ -9,12 +10,14 @@ import argparse
 parser = argparse.ArgumentParser(description="BOSS - Bounty Osint Sniffer Software.")
 parser.add_argument("--json", help="Attach hackerone json file")
 parser.add_argument("--file", help="Attach regular file")
+parser.add_argument("--ns",   help="Search names servers (From domain) - Experimental", \
+                    action=argparse.BooleanOptionalAction)
 args = parser.parse_args()
 
 
-#First element Exclude list
-#print(Saved_Scope[0])     #Second element Include List
-#print(Saved_Scope[1])
+#Global Vars (For now)
+NS = False
+
 
 #This step Sanitizes the domains found in the JSON obj
 def SanitizeScope(Scope):
@@ -140,19 +143,37 @@ def JSONFIle(Saved_Scope):
         
             
     Domains_Formatted_dups = list(dict.fromkeys(Domains_Formatted))
-    print("\n\nName Servers Located: ")
+    print("\n\nDomains Located: ")
     pprint(Domains_Formatted_dups)
     
     return Domains_Formatted_dups
+
+def NameServerSearch(domains):
+    print("\n\nName servers Found")
+    for domain in domains:
+        string = getNameServers_DIG(domain)
+    
+
+if args.ns:
+    NS = True
 
 if args.json:
     json_file_var = args.json
     Saved_Scope = JSONParser(json_file_var) 
     Domains = JSONFIle(Saved_Scope)
 
+    if NS == True:
+        print("\n\nWarning: You are stepping into an experimental function.")
+        NameServerSearch(Saved_Scope[1]) # Will output name servers from in-scope domains
+    
+
 elif args.file:
     rfile = args.file
     rfile_san = RegFile(rfile)
+
+    if NS == True:
+        print("\n\nWarning: You are stepping into an experimental function.")
+        NameServerSearch(rfile_san) # Will output name servers from provided domains
     
 
 
