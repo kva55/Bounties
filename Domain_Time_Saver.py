@@ -92,10 +92,10 @@ def getNameServers_DIG(domain): #Experimental, searches for all name servers whi
 
         #print("Recieved at least 1 domain")
         string_format = string.split('\\n')
-        string_format = string[:-1]
+        #string_format = string[:-1]
         #print(domain)
-        print(string_format)
-
+        #print(string_format)
+        return string_format
         if string_format != None:
             return string_format
         

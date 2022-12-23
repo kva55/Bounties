@@ -5,18 +5,22 @@ from scoper import HostCutter, JSONParser
 from pprint import pprint
 from os import path
 import argparse
+import csv
 
 
 parser = argparse.ArgumentParser(description="BOSS - Bounty Osint Sniffer Software.")
-parser.add_argument("--json", help="Attach hackerone json file")
-parser.add_argument("--file", help="Attach regular file")
-parser.add_argument("--ns",   help="Search names servers (From domain) - Experimental", \
+parser.add_argument("-j", "--json", metavar='', help="Attach hackerone json file")
+parser.add_argument("-f", "--file", metavar='', help="Attach regular file")
+parser.add_argument("-ns", "--ns",  metavar='', help="Search names servers (From domain) - Experimental", \
                     action=argparse.BooleanOptionalAction)
+parser.add_argument("-o", "--output", metavar='', help="Outputs the results into a spreadsheet.")
 args = parser.parse_args()
 
 
 #Global Vars (For now)
-NS = False
+NS  = False
+OUT = False
+NStorage = []
 
 
 #This step Sanitizes the domains found in the JSON obj
@@ -152,21 +156,94 @@ def NameServerSearch(domains):
     print("\n\nName servers Found")
     for domain in domains:
         string = getNameServers_DIG(domain)
+        NStorage.append(string) # This stores unformated NS
+
+    unique_entries = set() # Create a unique set
+    for entry in NStorage:
+        unique_entries.add(tuple(entry))
+            
+    unique_entries = list(unique_entries) #organize
+    ue = str(unique_entries)
+    ue = ue.replace('(','')
+    ue = ue.replace(')','')
+    ue = ue.replace('"','')
+    ue = ue.replace("b'",'')
+    ue = ue.replace("'",'')
+    ue = ue.replace('\n','')
+    ue = ue.replace(' ','')
+    ue = ue.replace('[','')
+    ue = ue.replace(']','')
+
+        
+    ue = ue.split(',') # Seperates everything into a list
+    ue4 = list(filter(lambda x: x.strip(), ue)) # Removes empties
+
+    ue4 = [x[:-1] for x in ue4] # Removes '.' at the end
+
+    ue4 = list(set(ue4)) # Removes duplicates
+
+    return ue4
     
 
 if args.ns:
     NS = True
+
+if args.output:
+    OUT = True
+    name_of_csv = args.output
+    #spreadsheet = open (name_of_csv, 'w', newline='') #Open Spreadsheet
+    #writer = csv.writer(spreadsheet)
 
 if args.json:
     json_file_var = args.json
     Saved_Scope = JSONParser(json_file_var) 
     Domains = JSONFIle(Saved_Scope)
 
+
     if NS == True:
         print("\n\nWarning: You are stepping into an experimental function.")
-        NameServerSearch(Saved_Scope[1]) # Will output name servers from in-scope domains
-    
+        NameServers = NameServerSearch(Saved_Scope[1]) # Will output name servers from in-scope domains
+        pprint(NameServers)
 
+    Include_Scope = Saved_Scope[1]
+    #This option here prints only found domains into a spreadsheet
+    if NS == False and OUT == True:
+        with open(name_of_csv, 'w', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(["In-Scope Domains Provided","Domains Found"])
+            for i in range(max(len(Domains), len(Include_Scope))):
+                if i < len(Domains):
+                    domain = Domains[i]
+                else:
+                    domain = ''
+                if i < len(Include_Scope):
+                    InScope = Include_Scope[i]
+                else:
+                    InScope = ''
+                writer.writerow([InScope, domain])
+
+
+    #This options here prints both domains found and name servers into a spreadsheet
+    if NS == True and OUT == True:
+        with open(name_of_csv, 'w', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(["In-Scope Domains Provided","Domains Found", "Name Servers Found"])
+            for i in range(max(len(Domains), len(NameServers), len(Include_Scope))):
+                if i < len(Domains):
+                    domain = Domains[i]
+                else:
+                    domain = ''
+                if i < len(NameServers):
+                    name_server = NameServers[i]
+                else:
+                    name_server = ''
+                if i < len(Include_Scope):
+                    InScope = Include_Scope[i]
+                else:
+                    InScope = ''
+                writer.writerow([InScope, domain, name_server])
+
+        
 elif args.file:
     rfile = args.file
     rfile_san = RegFile(rfile)
@@ -174,6 +251,9 @@ elif args.file:
     if NS == True:
         print("\n\nWarning: You are stepping into an experimental function.")
         NameServerSearch(rfile_san) # Will output name servers from provided domains
+        pprint(NameServers)
+        
+
     
 
 
