@@ -10,3 +10,8 @@ For custom input files, make sure to seperate each entry with a new line
 To enumerate the name servers
 
 ```python3 Main.py --file or --json <input.ext> --ns``` **Note:** --ns is True by default, use --no-ns for no name server enumeration. Or just leave it out.
+
+For saving your results in a csv file
+
+```python3 Main.py --file or --json <input.ext> --output /path/to/file.csv```
+
