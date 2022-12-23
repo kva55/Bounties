@@ -21,6 +21,7 @@ args = parser.parse_args()
 NS  = False
 OUT = False
 NStorage = []
+NameServers = []
 
 
 #This step Sanitizes the domains found in the JSON obj
@@ -33,8 +34,7 @@ def SanitizeScope(Scope):
     Sanitized_Scope = Temp_Include.split(',')
     return Sanitized_Scope
 
-def RegFile(rfile):
-    New_Domains_List = []
+def RegScope(rfile_list):
     rfile_list = []
     if path.exists(rfile):
         print("Hackerone Scope Verifier.\nFile attached is: " + rfile)
@@ -45,9 +45,15 @@ def RegFile(rfile):
                 line = line.strip("\n")
                 rfile_list.append(line)
         fopen.close()
+    return rfile_list
 
+#This will get the domains (Enumerated ptr domains).
+def RegFile(rfile_list):
+    New_Domains_List = []
     #This step will take all included scope and find domain names
     print("\nDomains in Scope: ")
+    pprint(rfile_list)
+    print()
     for domain in rfile_list:
         if str(domain).find('*') != -1: #Searches for wildcards
             cut = str(domain).find('*')
@@ -85,7 +91,7 @@ def RegFile(rfile):
                 Domains_Formatted.append(test)
                 
     Domains_Formatted_dups = list(dict.fromkeys(Domains_Formatted))
-    print("\n\nName Servers Located: ")
+    print("\n\nDomains Located: ")
     pprint(Domains_Formatted_dups)
     
     return Domains_Formatted_dups
@@ -245,14 +251,56 @@ if args.json:
 
         
 elif args.file:
-    rfile = args.file
-    rfile_san = RegFile(rfile)
+    rfile     = args.file
+    In_Scope  = RegScope(rfile)
+    rfile_san = RegFile(In_Scope)
 
-    if NS == True:
-        print("\n\nWarning: You are stepping into an experimental function.")
-        NameServerSearch(rfile_san) # Will output name servers from provided domains
-        pprint(NameServers)
-        
+    
+    print("\n\nWarning: You are stepping into an experimental function.")
+    NameServers = NameServerSearch(rfile_san) # Will output name servers from in-scope domains
+    pprint(NameServers)
+
+    #This option here prints only found domains into a spreadsheet
+    if NS == False and OUT == True:
+        print("SEEEEES")
+        with open(name_of_csv, 'w', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(["In-Scope Domains Provided","Domains Found"])
+            for i in range(max(len(rfile_san), len(In_Scope))):
+                if i < len(rfile_san):
+                    domain = rfile_san[i]
+                else:
+                    domain = ''
+                if i < len(In_Scope):
+                    InScope = In_Scope[i]
+                else:
+                    InScope = ''
+                writer.writerow([InScope, domain])
+
+    
+    #This options here prints both domains found and name servers into a spreadsheet
+    if NS == True and OUT == True:
+        print("TEEEEET")
+        with open(name_of_csv, 'w', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(["In-Scope Domains Provided","Domains Found", "Name Servers Found"])
+    
+
+            for i in range(max(len(In_Scope), len(rfile_san), len(NameServers))):
+                if i < len(rfile_san):
+                    domain = rfile_san[i]
+                else:
+                    domain = ''
+                if i < len(NameServers):
+                    name_server = NameServers[i]
+                else:
+                    name_server = ''
+                if i < len(In_Scope):
+                    InScope = In_Scope[i]
+                else:
+                    InScope = ''
+                writer.writerow([InScope, domain, name_server])
+    
 
     
 
