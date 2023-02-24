@@ -14,6 +14,7 @@ parser.add_argument("-f", "--file", metavar='', help="Attach regular file")
 parser.add_argument("-ns", "--ns",  metavar='', help="Search names servers (From domain) - Experimental", \
                     action=argparse.BooleanOptionalAction)
 parser.add_argument("-o", "--output", metavar='', help="Outputs the results into a spreadsheet.")
+parser.add_argument("-se", "--subdomain-enumeration", "--subdomain-enum", type=int, metavar='', help="Subdomain enumeration functionality")
 args = parser.parse_args()
 
 
@@ -22,7 +23,7 @@ NS  = False
 OUT = False
 NStorage = []
 NameServers = []
-
+Addresses = []
 
 #This step Sanitizes the domains found in the JSON obj
 def SanitizeScope(Scope):
@@ -58,12 +59,14 @@ def RegFile(rfile_list):
         if str(domain).find('*') != -1: #Searches for wildcards
             cut = str(domain).find('*')
             wDomain = domain[cut+2:] #Domain without wildcard
-            Addresses = getAddrx(str(wDomain))
+            #Addresses = getAddrx(str(wDomain))
+            Addresses.append(getAddrx(wDomain))
             New_Domains = DomainGrabber(Addresses)
             New_Domains_List.append(New_Domains)
 
         else: #These do not have wild cards, do not do subdomain enumeration.
-            Addresses = getAddrx(str(domain))
+            #Addresses = getAddrx(str(domain))
+            Addresses.append(getAddrx(wDomain))
             New_Domains = DomainGrabber(Addresses)
             New_Domains_List.append(New_Domains)
         
@@ -118,12 +121,12 @@ def JSONFIle(Saved_Scope):
         if str(domain).find('*') != -1: #Searches for wildcards
             cut = str(domain).find('*')
             wDomain = domain[cut+2:] #Domain without wildcard
-            Addresses = getAddrx(wDomain)
+            Addresses.append(getAddrx(wDomain))
             New_Domains = DomainGrabber(Addresses)
             New_Domains_List.append(New_Domains)
 
         else: #These do not have wild cards, do not do subdomain enumeration.
-            Addresses = getAddrx(domain)
+            Addresses.append(getAddrx(wDomain))
             New_Domains = DomainGrabber(Addresses)
             New_Domains_List.append(New_Domains)
 
@@ -216,7 +219,7 @@ if args.json:
     if NS == False and OUT == True:
         with open(name_of_csv, 'w', newline='') as csvfile:
             writer = csv.writer(csvfile)
-            writer.writerow(["In-Scope Domains Provided","Domains Found"])
+            writer.writerow(["In-Scope Domains Provided","Domains Found", "PTR Addresses"])
             for i in range(max(len(Domains), len(Include_Scope))):
                 if i < len(Domains):
                     domain = Domains[i]
@@ -226,14 +229,18 @@ if args.json:
                     InScope = Include_Scope[i]
                 else:
                     InScope = ''
-                writer.writerow([InScope, domain])
+                if i < len(Addresses):
+                    Addresses2 = Addresses[i]
+                else:
+                    Addresses2 = ''
+                writer.writerow([InScope, domain, Addresses2])
 
 
     #This options here prints both domains found and name servers into a spreadsheet
     if NS == True and OUT == True:
         with open(name_of_csv, 'w', newline='') as csvfile:
             writer = csv.writer(csvfile)
-            writer.writerow(["In-Scope Domains Provided","Domains Found", "Name Servers Found"])
+            writer.writerow(["In-Scope Domains Provided","Domains Found", "PTR Addresses", "Name Servers Found"])
             for i in range(max(len(Domains), len(NameServers), len(Include_Scope))):
                 if i < len(Domains):
                     domain = Domains[i]
@@ -247,7 +254,11 @@ if args.json:
                     InScope = Include_Scope[i]
                 else:
                     InScope = ''
-                writer.writerow([InScope, domain, name_server])
+                if i < len(Addresses):
+                    Addresses2 = Addresses[i]
+                else:
+                    Addresses2 = ''
+                writer.writerow([InScope, domain, Addresses2, name_server])
 
         
 elif args.file:
@@ -265,7 +276,7 @@ elif args.file:
         print("SEEEEES")
         with open(name_of_csv, 'w', newline='') as csvfile:
             writer = csv.writer(csvfile)
-            writer.writerow(["In-Scope Domains Provided","Domains Found"])
+            writer.writerow(["In-Scope Domains Provided","Domains Found", "PTR Addresses"])
             for i in range(max(len(rfile_san), len(In_Scope))):
                 if i < len(rfile_san):
                     domain = rfile_san[i]
@@ -275,7 +286,11 @@ elif args.file:
                     InScope = In_Scope[i]
                 else:
                     InScope = ''
-                writer.writerow([InScope, domain])
+                if i < len(Addresses):
+                    Addresses2 = Addresses[i]
+                else:
+                    Addresses2 = ''
+                writer.writerow([InScope, domain, Addresses2])
 
     
     #This options here prints both domains found and name servers into a spreadsheet
@@ -283,7 +298,7 @@ elif args.file:
         print("TEEEEET")
         with open(name_of_csv, 'w', newline='') as csvfile:
             writer = csv.writer(csvfile)
-            writer.writerow(["In-Scope Domains Provided","Domains Found", "Name Servers Found"])
+            writer.writerow(["In-Scope Domains Provided","Domains Found", "PTR Addresses", "Name Servers Found"])
     
 
             for i in range(max(len(In_Scope), len(rfile_san), len(NameServers))):
@@ -299,10 +314,9 @@ elif args.file:
                     InScope = In_Scope[i]
                 else:
                     InScope = ''
-                writer.writerow([InScope, domain, name_server])
-    
+                if i < len(Addresses):
+                    Addresses2 = Addresses[i]
+                else:
+                    Addresses2 = ''
+                writer.writerow([InScope, domain, Addresses2, name_server])
 
-    
-
-
-    
