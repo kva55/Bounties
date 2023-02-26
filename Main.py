@@ -66,6 +66,7 @@ def RegFile(rfile_list):
 
         else: #These do not have wild cards, do not do subdomain enumeration.
             #Addresses = getAddrx(str(domain))
+            wDomain = domain
             Addresses.append(getAddrx(wDomain))
             New_Domains = DomainGrabber(Addresses)
             New_Domains_List.append(New_Domains)

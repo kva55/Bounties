@@ -1,5 +1,6 @@
 # BOSS - Bounty Osint Sniffer Software (Names a work-in-progress)
-Currently this code enumerates all the domains / ptr names based on a hackerone includes/excludes json file
+Currently this code enumerates all the IPs/ptr IPs, and name servers, based on a hackerone includes/excludes json file.
+Custom domains can be added instead of hackerone yaml scope file with --file arg.
 
 ```python3 Main.py --json <hackerone.json>```
 
@@ -15,3 +16,8 @@ For saving your results in a csv file
 
 ```python3 Main.py --file or --json <input.ext> --output /path/to/file.csv```
 
+Basic subdomain enumeration
+```python3 CheckUp/assetfinder.py --input <input.txt> --output <path/to/file.csv>
+
+Basic 
+```python3 CheckUp/CheckUp.py <Input: input.txt> <Output: path/to/file.csv>
