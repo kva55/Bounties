@@ -19,5 +19,5 @@ For saving your results in a csv file
 Basic subdomain enumeration
 ```python3 CheckUp/assetfinder.py --input <input.txt> --output <path/to/file.csv>
 
-Basic 
-```python3 CheckUp/CheckUp.py <Input: input.txt> <Output: path/to/file.csv>
+Basic domain up test
+```python3 CheckUp/CheckUp.py <Input: input.txt> <Output: path/to/file.csv>```
