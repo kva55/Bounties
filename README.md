@@ -17,7 +17,9 @@ For saving your results in a csv file
 ```python3 Main.py --file or --json <input.ext> --output /path/to/file.csv```
 
 Basic subdomain enumeration
-```python3 CheckUp/assetfinder.py --input <input.txt> --output <path/to/file.csv>
+
+```python3 CheckUp/assetfinder.py --input <input.txt> --output <path/to/file.csv>```
 
 Basic domain up test
-```python3 CheckUp/CheckUp.py <Input: input.txt> <Output: path/to/file.csv>```
+
+```python3 CheckUp/CheckUp.py <input.txt> <path/to/file.csv>```
