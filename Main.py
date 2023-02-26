@@ -107,6 +107,7 @@ def JSONFIle(Saved_Scope):
     Include_Scope = SanitizeScope(Saved_Scope[1])
     New_Domains_List = []
     
+    
     print("\nIncluded Scope Domains: ")
     for domain in Include_Scope:
         print(domain)
@@ -162,6 +163,24 @@ def JSONFIle(Saved_Scope):
     
     return Domains_Formatted_dups
 
+def remove_wildcard_domains(InScope):
+    """
+    Remove any initial '*.' wildcards with a period after it in a list of domain names.
+
+    Parameters:
+    domains (list): A list of domain names.
+
+    Returns:
+    A new list of domain names with the initial '*.' wildcard removed.
+    """
+    san_InScope = []
+    for domain in InScope:
+        if domain.startswith('*'):
+            domain = domain[2:] if domain.startswith('*.') else domain[1:]
+        san_InScope.append(domain)
+
+    return san_InScope
+
 def NameServerSearch(domains):
     print("\n\nName servers Found")
     for domain in domains:
@@ -184,7 +203,7 @@ def NameServerSearch(domains):
     ue = ue.replace('[','')
     ue = ue.replace(']','')
 
-        
+
     ue = ue.split(',') # Seperates everything into a list
     ue4 = list(filter(lambda x: x.strip(), ue)) # Removes empties
 
@@ -216,11 +235,12 @@ if args.json:
         pprint(NameServers)
 
     Include_Scope = Saved_Scope[1]
+    San_Include_Scope = remove_wildcard_domains(Include_Scope)
     #This option here prints only found domains into a spreadsheet
     if NS == False and OUT == True:
         with open(name_of_csv, 'w', newline='') as csvfile:
             writer = csv.writer(csvfile)
-            writer.writerow(["In-Scope Domains Provided","Domains Found", "PTR Addresses"])
+            writer.writerow(["Sanitized Domain Names In-Scope","In-Scope Domains Provided","Domains Found", "PTR Addresses"])
             for i in range(max(len(Domains), len(Include_Scope))):
                 if i < len(Domains):
                     domain = Domains[i]
@@ -234,14 +254,19 @@ if args.json:
                     Addresses2 = Addresses[i]
                 else:
                     Addresses2 = ''
-                writer.writerow([InScope, domain, Addresses2])
+                if i < len(San_Include_Scope):
+                    San_Include_Scope2 = San_Include_Scope[i]
+                else:
+                    San_Include_Scope2 = ''
+                    
+                writer.writerow([San_Include_Scope2, InScope, domain, Addresses2])
 
 
     #This options here prints both domains found and name servers into a spreadsheet
     if NS == True and OUT == True:
         with open(name_of_csv, 'w', newline='') as csvfile:
             writer = csv.writer(csvfile)
-            writer.writerow(["In-Scope Domains Provided","Domains Found", "PTR Addresses", "Name Servers Found"])
+            writer.writerow(["Sanitized Domain Names In-Scope", "In-Scope Domains Provided","Domains Found", "PTR Addresses", "Name Servers Found"])
             for i in range(max(len(Domains), len(NameServers), len(Include_Scope))):
                 if i < len(Domains):
                     domain = Domains[i]
@@ -259,7 +284,13 @@ if args.json:
                     Addresses2 = Addresses[i]
                 else:
                     Addresses2 = ''
-                writer.writerow([InScope, domain, Addresses2, name_server])
+                    
+                if i < len(San_Include_Scope):
+                    San_Include_Scope2 = San_Include_Scope[i]
+                else:
+                    San_Include_Scope2 = ''
+                    
+                writer.writerow([San_Include_Scope2, InScope, domain, Addresses2, name_server])
 
         
 elif args.file:
