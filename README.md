@@ -1,4 +1,4 @@
-# BOSS - Bounty Osint Sniffer Software (Names a work-in-progress)
+# BOSS - Bounty Operations Streamline Scripts
 Currently this code enumerates all the IPs/ptr IPs, and name servers, based on a hackerone includes/excludes json file.
 Custom domains can be added instead of hackerone yaml scope file with --file arg.
 
